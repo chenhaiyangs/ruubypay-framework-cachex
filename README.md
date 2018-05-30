@@ -6,7 +6,7 @@
 ```xml
     <!-- 分布式缓存框架 -->
     <dependency>
-        <groupId>com.ruubypay.miss</groupId>
+        <groupId>com.github.chenhaiyangs</groupId>
         <artifactId>ruubypay-framework-cachex</artifactId>
         <version>1.0.0</version>
     </dependency>
@@ -105,11 +105,11 @@
     <aop:config proxy-target-class="true">
         <!-- 处理 @RateLimit AOP-->
         <aop:aspect ref="cacheInterceptor" order="99">
-            <aop:pointcut id="cachePointCut" expression="execution(* com.ruubypay.miss.pushcenter.impl.*.*(..)) &amp;&amp;@annotation(cacheEnabled)"/>
+            <aop:pointcut id="cachePointCut" expression="execution(* com.ruubypay.business.impl.*.*(..)) &amp;&amp;@annotation(cacheEnabled)"/>
             <aop:around pointcut-ref="cachePointCut" method="proceed"/>
         </aop:aspect>
         <aop:aspect ref="cacheInterceptor">
-            <aop:pointcut id="cachedeletePointCut" expression="execution(* com.ruubypay.miss.pushcenter.impl.*.*(..)) &amp;&amp;@annotation(cacheDelete)"/>
+            <aop:pointcut id="cachedeletePointCut" expression="execution(* com.ruubypay.business.impl.*.*(..)) &amp;&amp;@annotation(cacheDelete)"/>
             <!-- 缓存删除功能包含在增删改之前 和 在增删改之后两种，使用者可以在性能和一致性两个方向选择权衡配置其一或者两个都配置（更能保证一致性） -->
             <!-- 在增删改操作之后删除缓存 -->
             <aop:after-returning pointcut-ref="cachedeletePointCut" method="deleteCacheAfter" returning="returnValue"/>
