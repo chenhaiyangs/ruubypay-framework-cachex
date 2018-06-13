@@ -70,7 +70,7 @@
         本框架是数据一致性优先于性能的框架。如果有改动配置：某个key类型的缓存功能由关闭->开启。某个key类型的缓存超时时间发生变更
         框架会在多个服务节点选取一个leader 去批量删除该类型的key。在此期间，该key类型的数据查询全部都走数据库（会影响性能，大并发下最好不要修改线上缓存的配置。）
         configs 缓存key的配置，具体是一个map<String,String> 可以将对应的热配置中心配置group对象注入。
-        如果使用了当当的configtoolkit。则：
+        如果使用了配置中心configx
         <config:group id="cachekeyConfig" node="cache-limit" />
         假设注解配置为：
         @CacheEnabled(key ="'getPushList:'+#args[0].userID",configFromOuter = true)
