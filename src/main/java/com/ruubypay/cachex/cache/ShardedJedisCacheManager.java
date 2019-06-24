@@ -285,19 +285,24 @@ public class ShardedJedisCacheManager implements ICacheManager {
         private void deleteKeysByMatchKey(Jedis jedis){
             try{
                 ScanResult<String> result;
+                String cursor =CURSOR_START;
                 do{
-                    result= jedis.scan(CURSOR_START,new ScanParams().count(1000).match(matchKey+"*"));
+                    result= jedis.scan(cursor,new ScanParams().count(1000).match(matchKey+"*"));
                     if(!result.getResult().isEmpty()){
                         Set<String> keys = new HashSet<>();
                         keys.addAll(result.getResult());
                         jedis.del(keys.toArray(new String[]{}));
+                    }
+                    cursor = result.getStringCursor();
+                    if (CURSOR_START.equals(cursor)) {
+                        break;
                     }
                     try {
                         Thread.sleep(2);
                     } catch (InterruptedException e) {
                         log.error(e.getMessage(),e);
                     }
-                }while(!result.getResult().isEmpty());
+                }while(true);
             }catch (Exception e){
                 log.error("jedisClient:[{}] delete cache error matchKey:[{}]",jedis,matchKey,e);
             }
