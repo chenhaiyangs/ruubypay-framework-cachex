@@ -25,7 +25,7 @@ public class Protobuftest {
         ProtobufSerializer serializer = new ProtobufSerializer();
 
         byte[] seriallis = serializer.serialize(bean);
-        System.out.println("加密后的结果:"+seriallis);
+        System.out.println("加密后的结果:"+new String(seriallis,"UTF-8"));
 
         Object deserializes = serializer.deserialize(seriallis, ProtobufBean.class);
         System.out.println("解密后的结果:"+deserializes);
