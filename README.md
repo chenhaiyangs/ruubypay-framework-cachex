@@ -8,7 +8,7 @@
     <dependency>
         <groupId>com.github.chenhaiyangs</groupId>
         <artifactId>ruubypay-framework-cachex</artifactId>
-        <version>1.0.0</version>
+        <version>1.1.0</version>
     </dependency>
 ```    
 
